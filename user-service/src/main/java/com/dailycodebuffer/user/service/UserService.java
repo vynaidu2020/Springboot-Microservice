@@ -18,7 +18,7 @@ public class UserService {
 
     @Autowired
     private RestTemplate restTemplate;
-
+    
     public User saveUser(User user) {
         log.info("Inside saveUser of UserService");
         return userRepository.save(user);
@@ -26,9 +26,8 @@ public class UserService {
 
     public ResponseTemplateVO getUserWithDepartment(Long userId) {
         log.info("Inside getUserWithDepartment of UserService");
-        ResponseTemplateVO vo = new ResponseTemplateVO();
         User user = userRepository.findByUserId(userId);
-
+        ResponseTemplateVO vo = new ResponseTemplateVO();
         Department department =
                 restTemplate.getForObject("http://DEPARTMENT-SERVICE/departments/" + user.getDepartmentId()
                         ,Department.class);
